@@ -5,7 +5,9 @@ output:
     keep_md: true
 ---
 
-
+```{r echo = FALSE}
+options(scipen=1, digits=2)
+```
 ## Loading and preprocessing the data
 
 ####1. Load the data.

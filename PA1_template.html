@@ -125,7 +125,7 @@ head(total_steps_2)</code></pre>
 <p>Using <code>total_steps</code> as the dataset for inspection, the <code>mean</code> and <code>median</code> can be caluclated using the function with the same name.</p>
 <pre class="r"><code>mean_steps &lt;- mean(total_steps$steps)
 median_steps &lt;- median(total_steps$steps)</code></pre>
-<p>Hence, the <code>mean_steps</code> is 1.076618910^{4} and the <code>median_steps</code> is 10765 (Here the numeric format is modified by global option <code>options(scipen=1, digits=2)</code>)</p>
+<p>Hence, the <code>mean_steps</code> is 10766.19 and the <code>median_steps</code> is 10765 (Here the numeric format is modified by global option <code>options(scipen=1, digits=2)</code>)</p>
 </div>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
@@ -135,13 +135,13 @@ median_steps &lt;- median(total_steps$steps)</code></pre>
 <p>Similarly, we can use <code>aggregate</code> to calculate the total number of steps taken of each interval (5 mins) in the <code>interval</code> column of <code>data</code> dataset. Again, NAs are dismissed by default.</p>
 <pre class="r"><code>steps_interval &lt;- aggregate(steps ~ interval, data = data, mean)
 head(steps_interval)</code></pre>
-<pre><code>##   interval     steps
-## 1        0 1.7169811
-## 2        5 0.3396226
-## 3       10 0.1320755
-## 4       15 0.1509434
-## 5       20 0.0754717
-## 6       25 2.0943396</code></pre>
+<pre><code>##   interval steps
+## 1        0 1.717
+## 2        5 0.340
+## 3       10 0.132
+## 4       15 0.151
+## 5       20 0.075
+## 6       25 2.094</code></pre>
 <p>A simple line plot of interval vs steps can be made by using either the base plot system or ggplot2 system or lattice. This code below illustrate the use of ggplot system.</p>
 <pre class="r"><code>library(ggplot2)
 g &lt;- ggplot(steps_interval, aes(interval, steps))
@@ -154,8 +154,8 @@ g + geom_line() +
 <p>The maximum number of steps together with its corresponding interval can be found using <code>subset</code></p>
 <pre class="r"><code>max &lt;- subset(steps_interval, steps == max(steps))
 max #Show the maxium steps at the found interval</code></pre>
-<pre><code>##     interval    steps
-## 104      835 206.1698</code></pre>
+<pre><code>##     interval steps
+## 104      835   206</code></pre>
 </div>
 </div>
 <div id="imputing-missing-values" class="section level2">
@@ -174,7 +174,7 @@ total_NAs #Show the result</code></pre>
 <pre class="r"><code>ind &lt;- which(is.na(data$steps), arr.ind = TRUE)
 summary(ind)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##       1    7273   10660    9324   12020   17570</code></pre>
+##       1    7270   10700    9320   12000   17600</code></pre>
 <p>A new dataset, <code>modified_data</code>, is created based on the original dataset <code>data</code>. In this replidated dataset, we will replace the missing value with the mean value (steps) obtained from <code>steps_interval</code>.</p>
 <p>This can be done using a nested <code>for</code> loop function which will operate as follow: + The outer <code>for</code> loop will run through the length of the <code>ind</code> vector obtained above. + For each of index value, the corresponding interval number will be compared with the interval values in the <code>steps_interval</code> dataset by using another <code>for</code> loop nested inside. Once matched, the steps value of <code>steps_interval</code> will be assigned to that missing value.</p>
 <pre class="r"><code>modified_data &lt;- data
@@ -191,26 +191,26 @@ for (i in 1:length(ind)) { #Looping through the extracted NA index
 <h4>3.Create a new dataset that is equal to the original dataset but with the missing data filled in.</h4>
 <p>The new dataset with the filled in missing values is here:</p>
 <pre class="r"><code>head(modified_data)</code></pre>
-<pre><code>##       steps       date interval
-## 1 1.7169811 2012-10-01        0
-## 2 0.3396226 2012-10-01        5
-## 3 0.1320755 2012-10-01       10
-## 4 0.1509434 2012-10-01       15
-## 5 0.0754717 2012-10-01       20
-## 6 2.0943396 2012-10-01       25</code></pre>
+<pre><code>##   steps       date interval
+## 1 1.717 2012-10-01        0
+## 2 0.340 2012-10-01        5
+## 3 0.132 2012-10-01       10
+## 4 0.151 2012-10-01       15
+## 5 0.075 2012-10-01       20
+## 6 2.094 2012-10-01       25</code></pre>
 </div>
 <div id="make-a-histogram-of-the-total-number-of-steps-taken-each-day-and-calculate-and-report-the-mean-and-median-total-number-of-steps-taken-per-day.-do-these-values-differ-from-the-estimates-from-the-first-part-of-the-assignment-what-is-the-impact-of-imputing-missing-data-on-the-estimates-of-the-total-daily-number-of-steps" class="section level4">
 <h4>4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?</h4>
 <p>Similarly, the new total number of steps taken per day can be calculated using the aggregate function.</p>
 <pre class="r"><code>new_total_steps &lt;- aggregate(steps ~ date, data = modified_data, sum)
 head(new_total_steps)</code></pre>
-<pre><code>##         date    steps
-## 1 2012-10-01 10766.19
-## 2 2012-10-02   126.00
-## 3 2012-10-03 11352.00
-## 4 2012-10-04 12116.00
-## 5 2012-10-05 13294.00
-## 6 2012-10-06 15420.00</code></pre>
+<pre><code>##         date steps
+## 1 2012-10-01 10766
+## 2 2012-10-02   126
+## 3 2012-10-03 11352
+## 4 2012-10-04 12116
+## 5 2012-10-05 13294
+## 6 2012-10-06 15420</code></pre>
 <p>Create the histogram:</p>
 <pre class="r"><code>hist(new_total_steps$steps,
      main = &quot;Histogram of the number of steps taken each day (modified with NA)&quot;, 
@@ -220,10 +220,10 @@ head(new_total_steps)</code></pre>
 <p>Finding mean and median value of <code>new_total_steps</code>:</p>
 <pre class="r"><code>mean_new_total_steps &lt;- mean(new_total_steps$steps)
 mean_new_total_steps</code></pre>
-<pre><code>## [1] 10766.19</code></pre>
+<pre><code>## [1] 10766</code></pre>
 <pre class="r"><code>median_new_total_steps &lt;- median(new_total_steps$steps)
 median_new_total_steps</code></pre>
-<pre><code>## [1] 10766.19</code></pre>
+<pre><code>## [1] 10766</code></pre>
 </div>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
@@ -272,13 +272,13 @@ head(data)</code></pre>
 <p>Again, using <code>aggragte()</code> to sort and summarize the average number of steps taken based on both <code>interval</code> and <code>day_type</code>:</p>
 <pre class="r"><code>new_steps_interval &lt;- aggregate(steps ~ interval+day_type, data = data, mean)
 head(new_steps_interval)</code></pre>
-<pre><code>##   interval day_type     steps
-## 1        0  weekday 2.3333333
-## 2        5  weekday 0.4615385
-## 3       10  weekday 0.1794872
-## 4       15  weekday 0.2051282
-## 5       20  weekday 0.1025641
-## 6       25  weekday 1.5128205</code></pre>
+<pre><code>##   interval day_type steps
+## 1        0  weekday  2.33
+## 2        5  weekday  0.46
+## 3       10  weekday  0.18
+## 4       15  weekday  0.21
+## 5       20  weekday  0.10
+## 6       25  weekday  1.51</code></pre>
 <p>We will use <code>ggplot2</code> to create the panel plot with condition specied above</p>
 <pre class="r"><code>g &lt;- ggplot(new_steps_interval, aes(interval, steps))
 g + geom_line() + 

@@ -78,7 +78,7 @@ hist(total_steps$steps,
      xlab = "steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 A simple histogram for this dataset if dates with NAs values are regarded as zero and are included in the dataset:
 
@@ -89,7 +89,7 @@ hist(total_steps_2$steps,
      xlab = "steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png) 
 
 ####3. Calculate and report the mean and median of the total number of steps taken per day
 
@@ -101,7 +101,7 @@ mean_steps <- mean(total_steps$steps)
 median_steps <- median(total_steps$steps)
 ```
 
-Hence, the `mean_steps` is 1.0766189\times 10^{4} and the `median_steps` is 10765 (Here the numeric format is modified by global option `options(scipen=1, digits=2)`)
+Hence, the `mean_steps` is 10766.19 and the `median_steps` is 10765 (Here the numeric format is modified by global option `options(scipen=1, digits=2)`)
 
 ## What is the average daily activity pattern?
 
@@ -116,13 +116,13 @@ head(steps_interval)
 ```
 
 ```
-##   interval     steps
-## 1        0 1.7169811
-## 2        5 0.3396226
-## 3       10 0.1320755
-## 4       15 0.1509434
-## 5       20 0.0754717
-## 6       25 2.0943396
+##   interval steps
+## 1        0 1.717
+## 2        5 0.340
+## 3       10 0.132
+## 4       15 0.151
+## 5       20 0.075
+## 6       25 2.094
 ```
 
 A simple line plot of interval vs steps can be made by using either the base plot system or ggplot2 system or lattice. This code below illustrate the use of ggplot system.
@@ -135,7 +135,7 @@ g + geom_line() +
     labs(title = "Average number of steps taken per 5 mins across all days", x = "interval [min]", y = "steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
 
 ####2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -148,8 +148,8 @@ max #Show the maxium steps at the found interval
 ```
 
 ```
-##     interval    steps
-## 104      835 206.1698
+##     interval steps
+## 104      835   206
 ```
 
 ## Imputing missing values
@@ -182,7 +182,7 @@ summary(ind)
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##       1    7273   10660    9324   12020   17570
+##       1    7270   10700    9320   12000   17600
 ```
 
 A new dataset, `modified_data`, is created based on the original dataset `data`. In this replidated dataset, we will replace the missing value with the mean value (steps) obtained from `steps_interval`.
@@ -213,13 +213,13 @@ head(modified_data)
 ```
 
 ```
-##       steps       date interval
-## 1 1.7169811 2012-10-01        0
-## 2 0.3396226 2012-10-01        5
-## 3 0.1320755 2012-10-01       10
-## 4 0.1509434 2012-10-01       15
-## 5 0.0754717 2012-10-01       20
-## 6 2.0943396 2012-10-01       25
+##   steps       date interval
+## 1 1.717 2012-10-01        0
+## 2 0.340 2012-10-01        5
+## 3 0.132 2012-10-01       10
+## 4 0.151 2012-10-01       15
+## 5 0.075 2012-10-01       20
+## 6 2.094 2012-10-01       25
 ```
 
 ####4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
@@ -233,13 +233,13 @@ head(new_total_steps)
 ```
 
 ```
-##         date    steps
-## 1 2012-10-01 10766.19
-## 2 2012-10-02   126.00
-## 3 2012-10-03 11352.00
-## 4 2012-10-04 12116.00
-## 5 2012-10-05 13294.00
-## 6 2012-10-06 15420.00
+##         date steps
+## 1 2012-10-01 10766
+## 2 2012-10-02   126
+## 3 2012-10-03 11352
+## 4 2012-10-04 12116
+## 5 2012-10-05 13294
+## 6 2012-10-06 15420
 ```
 
 Create the histogram:
@@ -250,7 +250,7 @@ hist(new_total_steps$steps,
      xlab = "steps")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png) 
 
 Comparing the three histograms; one which excluding NA, one which including NA and setting them to zero and one which modified NAs value; we can see that they are visually not very different.
 
@@ -263,7 +263,7 @@ mean_new_total_steps
 ```
 
 ```
-## [1] 10766.19
+## [1] 10766
 ```
 
 ```r
@@ -272,7 +272,7 @@ median_new_total_steps
 ```
 
 ```
-## [1] 10766.19
+## [1] 10766
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
@@ -362,13 +362,13 @@ head(new_steps_interval)
 ```
 
 ```
-##   interval day_type     steps
-## 1        0  weekday 2.3333333
-## 2        5  weekday 0.4615385
-## 3       10  weekday 0.1794872
-## 4       15  weekday 0.2051282
-## 5       20  weekday 0.1025641
-## 6       25  weekday 1.5128205
+##   interval day_type steps
+## 1        0  weekday  2.33
+## 2        5  weekday  0.46
+## 3       10  weekday  0.18
+## 4       15  weekday  0.21
+## 5       20  weekday  0.10
+## 6       25  weekday  1.51
 ```
 
 We will use `ggplot2` to create the panel plot with condition specied above
@@ -381,4 +381,4 @@ g + geom_line() +
       facet_grid(day_type ~.)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-22-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-23-1.png) 
