@@ -23,6 +23,8 @@ head(data)
 ## 6    NA 2012-10-01       25
 ```
 
+Examination of the data showed that the data is clean enough for subsequent data analysis.
+
 ## What is mean total number of steps taken per day?
 
 ####1. Calculate the total number of steps taken per day
